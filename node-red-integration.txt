@@ -1,0 +1,6 @@
+See README for more info (if you want to replace Node.js in Node-RED)
+
+just put this line in the agile node, and you should get the token. 
+
+var token = fs.readFileSync('/tmp/token.txt').toString().replace('\n','').replace('\r','');
+
