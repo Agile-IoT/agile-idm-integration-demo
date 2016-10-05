@@ -1,10 +1,11 @@
-# Integration of IDM
+# Demo with IDM and basic enforcement
 
 In the default configuration these are the loactions of the components:
 
 * localhost:3000/ http port for IDM
 * localhost:1443/ https with Client-SSL validation for IDM (required for Webid)
 * localhost:8000/ Os.js
+* localhost:8080 Enforcement proxy
 
 ## agile-handler-install.sh
 
