@@ -22,24 +22,26 @@ From the root of this directory:
 
 * idm:
 
+```
     $ cd agile-idm-web-ui/example/
     $ node app
+```
 
 * enforcement-proxy:
-
+```
     $ cd agile-enforcement-proxy/example
     $ node app
-
+```
 * Os.js:  
-
+```
     $ cd OS.js
     $ ./bin/start-dev.sh
-
+```
 * Node-RED:
-
+```
     $ cd node-red
     $ node red
-
+```
 ## How to test it
 
 Deploy the flows in the test-flows folder in node red.
