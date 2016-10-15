@@ -13,7 +13,7 @@ cd ..
 ##################### NODE RED  #########################33
 git clone https://github.com/node-red/node-red
 cd node-red
-git checkout b3796a8e2413426f226a647ebf16a64c9913ccc0 @knolleary knolleary committed 3 days ago
+git checkout b3796a8e2413426f226a647ebf16a64c9913ccc0 
 cp ../node-red-changes/Node.js  red/runtime/nodes/Node.js
 npm install
 grunt build
