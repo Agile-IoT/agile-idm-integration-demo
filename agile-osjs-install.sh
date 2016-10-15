@@ -1,7 +1,7 @@
 git clone https://github.com/doitdagi/OS.js
-git checkout 3e9a9e4dcd72e8b4cc666e57e0088c675c449062
 #git clone https://github.com/os-js/OS.js
 cd OS.js
+git checkout 3e9a9e4dcd72e8b4cc666e57e0088c675c449062
 npm install --save https://github.com/Agile-IoT/agile-idm-client#v1.0-alpha
 npm install
 #npm install --production
