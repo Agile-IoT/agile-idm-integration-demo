@@ -13,7 +13,7 @@ cd ..
 ##################### NODE RED  #########################33
 git clone https://github.com/node-red/node-red
 cd node-red
-git checkout b3796a8e2413426f226a647ebf16a64c9913ccc0 
+git checkout b3796a8e2413426f226a647ebf16a64c9913ccc0
 cp ../node-red-changes/Node.js  red/runtime/nodes/Node.js
 npm install
 grunt build
@@ -22,7 +22,7 @@ cd ..
 ##################### IDM  #########################33
 git clone https://github.com/Agile-IoT/agile-idm-web-ui
 cd agile-idm-web-ui
-git checkout v1.0-alpha
+git checkout v1.0.0
 npm install
 cd example
 npm install
@@ -36,7 +36,7 @@ cd ../../
 
 git clone https://github.com/Agile-IoT/agile-enforcement-proxy
 cd agile-enforcement-proxy
-git checkout v1.0-alpha
+git checkout v1.0.0
 npm install
 cd example
 ##Start proxy
