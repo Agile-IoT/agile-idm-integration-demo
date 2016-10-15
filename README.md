@@ -21,20 +21,24 @@ It installs the enforcement proxy (where calls should be directed with thte toke
 From the root of this directory:
 
 * idm:
-  $ cd agile-idm-web-ui/example/
-  $ node app
+
+    $ cd agile-idm-web-ui/example/
+    $ node app
 
 * enforcement-proxy:
-  $ cd agile-enforcement-proxy/example
-  $ node app
 
-* Os.js:
-  $ cd OS.js
-  $ ./bin/start-dev.sh
+    $ cd agile-enforcement-proxy/example
+    $ node app
+
+* Os.js:  
+
+    $ cd OS.js
+    $ ./bin/start-dev.sh
 
 * Node-RED:
-  $ cd node-red
-  $ node red
+
+    $ cd node-red
+    $ node red
 
 ## How to test it
 
