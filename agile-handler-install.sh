@@ -1,12 +1,12 @@
-./agile-osjs-install.sh
+source agile-osjs-install.sh
 
 ##################### NODE RED in OS.js #########################33
-#cd src/packages/default
-#git clone https://github.com/muka/osjs-nodered NodeRed
-#cd ../../../
-#grunt manifest config packages:default/NodeRed
-#grunt dist
-#cd ..
+cd src/packages/default
+git clone https://github.com/muka/osjs-nodered NodeRed
+cd ../../../
+grunt manifest config packages:default/NodeRed
+grunt dist
+cd ..
 
 ##################### NODE RED  #########################33
 git clone https://github.com/node-red/node-red
@@ -19,6 +19,7 @@ cd ..
 ##################### IDM  #########################33
 git clone https://github.com/Agile-IoT/agile-idm-web-ui
 cd agile-idm-web-ui
+git checkout v1.0-alpha
 npm install
 cd example
 npm install
@@ -32,6 +33,7 @@ cd ../../
 
 git clone https://github.com/Agile-IoT/agile-enforcement-proxy
 cd agile-enforcement-proxy
+git checkout v1.0-alpha
 npm install
 cd example
 ##Start proxy
