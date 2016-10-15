@@ -3,7 +3,7 @@
 In the default configuration these are the loactions of the components:
 
 * localhost:3000/ http port for IDM
-* localhost:1443/ https with Client-SSL validation for IDM (required for Webid)
+* localhost:1443/ https with Client-TLS validation for IDM (required for Webid)
 * localhost:8000/ Os.js
 * localhost:8080 Enforcement proxy
 
@@ -15,6 +15,26 @@ It installs the Node-red integration from muka in OS.js
 It installs AGILE-IDM in a way that it integrates nicely with OS.js
 It modifies installs a modified version of node-red that takes the token from IDM (through a file)
 It installs the enforcement proxy (where calls should be directed with thte token to test enforcement based on users (see example of configuration of allowed users in example/conf/ in )
+
+## How to Run it
+
+From the root of this directory:
+
+* idm:
+  $ cd agile-idm-web-ui/example/
+  $ node app
+
+* enforcement-proxy:
+  $ cd agile-enforcement-proxy/example
+  $ node app
+
+* Os.js:
+  $ cd OS.js
+  $ ./bin/start-dev.sh
+
+* Node-RED:
+  $ cd node-red
+  $ node red
 
 ## How to test it
 
