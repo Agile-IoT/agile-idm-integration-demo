@@ -52,29 +52,37 @@
     OSjs.Core._Handler.prototype.init.call(this, function() {
       console.log("Initializing AGILE Client Handler now...");
 
-      function getQueryVariable(variable) {
-         var query = window.location.search.substring(1);
-         var vars = query.split('&');
-         for (var i = 0; i < vars.length; i++) {
-             var pair = vars[i].split('=');
-             if (decodeURIComponent(pair[0]) == variable) {
-                 return decodeURIComponent(pair[1]);
-             }
-         }
-         return null;
+      function getQueryVariable(query,variable) {
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split('=');
+          if (decodeURIComponent(pair[0]) == variable) {
+              return decodeURIComponent(pair[1]);
+          }
+        }
+        console.log('Query variable %s not found', variable);
       }
 
       function loginAttempt(){
         if(document.getElementById("LoginForm").onsubmit){
              var IDMLogin = OSjs.API.getConfig("Connection.RedirectIDM");
-             var token = getQueryVariable("token");
-             if(token && token !=null){
+             var hash = window.location.href.substring(window.location.href.indexOf("#")+1);
+             var token = getQueryVariable(hash, "access_token");
+             var type = getQueryVariable(hash, "token_type");
+             if(token && type){
                document.getElementById('LoginUsername').value= "";
                document.getElementById('LoginPassword').value= token;
                document.getElementById("LoginSubmit").click();
              }
              else{
                console.error('redirecting unauthenticated user!');
+               //we ask IDM to redirect to this same website afterwards!
+               var myUrl = window.location.href;
+               //in case we already were in IDM, reamove the fragment
+               if(myUrl.indexOf("#")>0){
+                  myUrl = myUrl.substring(0,myUrl.indexOf("#"));
+               }
+               IDMLogin = IDMLogin+"?response_type=token&redirect_uri="+myUrl+"&client_id="+OSjs.API.getConfig("Oauth2.id");
                window.location = IDMLogin;
              }
 

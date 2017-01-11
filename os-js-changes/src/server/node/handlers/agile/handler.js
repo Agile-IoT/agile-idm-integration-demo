@@ -33,41 +33,69 @@
 (function() {
   'use strict';
 
-  var idm;
+  var idmUrl;
   var tokenFile;
   /////////////////////////////////////////////////////////////////////////////
   // API
   /////////////////////////////////////////////////////////////////////////////
-
+  var profileFromIDM = function (url, accessToken, done) {
+      var options = {
+        url: url,
+        headers: {
+          'Authorization': 'bearer ' + accessToken,
+          'User-Agent': 'user-agent',
+          'Content-type': 'application/json'
+        }
+      };
+      var request = require('request');
+      request.get(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          try {
+            var user = JSON.parse(body);
+            done(null, user);
+          } catch (error) {
+            done("unexpected result from IDM userinfo endpoint", null);
+          }
+        } else if (!error) {
+          if (response.statusCode == 401)
+            return done(null, null);
+          else
+            return done("wrong satus code from remote AGILE webserver  for authentication: " + body, null);
+        } else {
+          return done(error, null);
+        }
+      });
+  };
   /**
    * These methods will be added to the OS.js `API` namespace
    */
   var API = {
     login: function(server, args, callback) {
-      console.log('idm: '+idm.toString());
       console.log('tokenLocation: '+tokenFile.toString());
-      var auth = idm.authenticateEntityPromisse(args.password);
-      auth.then(function(data){
-        console.log('ok.. token is here!'+JSON.stringify(data));
-        var fs = require('fs');
-        fs.writeFile(tokenFile.toString(), data.token, function(err) {
-          if(err) {
-            return callback(err.toString());
-          }
-          server.handler.onLogin(server, {
-            userSettings: {},
-            userData: {
-              id: data["user_id"]+"@"+data["auth_type"],
-              username: data["user_id"]+"_"+data["auth_type"],
-              name: data["user_id"],
-              groups: ['admin']
+      var auth = profileFromIDM(idmUrl, args.password, function(error, data){
+        if(error){
+          console.log('auth wrong '+error);
+          callback('wrong agile user');
+          return;
+        }
+        else{
+          console.log('ok.. token is here!'+JSON.stringify(data));
+          var fs = require('fs');
+          fs.writeFile(tokenFile.toString(), data.token, function(err) {
+            if(err) {
+              return callback(err.toString());
             }
-          }, callback);
-         });
-       }).catch(function(error){
-         console.log('auth wrong '+error);
-         callback('wrong agile user');
-         return;
+            server.handler.onLogin(server, {
+              userSettings: {},
+              userData: {
+                id: data.id,
+                username: data.user_name,
+                name: data.user_name,
+                groups: ['admin']
+              }
+            }, callback);
+           });
+        }
       });
     },
 
@@ -106,16 +134,9 @@
 
     AgileHandler.prototype.onServerStart = function(cb) {
       var cfg = instance.config.handlers.agile;
-      var conf = {
-        "authentication":{
-          "web-server":cfg.idm
-        }
-      }
-      var IDMHttpClient = require('agile-idm-client').http;
-      idm = new IDMHttpClient(conf);
-      tokenFile =cfg.tokenFile;
-      //TODO construct IDM Client here...
+      idmUrl=cfg.idm;
 
+      tokenFile =cfg.tokenFile;
       cb();
     };
 
